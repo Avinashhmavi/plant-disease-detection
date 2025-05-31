@@ -1,36 +1,43 @@
-⸻
-
-🌿 Plant Disease Detector
+# 🌿 Plant Disease Detector
 
 An AI-powered web app that detects diseases in plant leaves or crops using advanced visual language models via OpenRouter and OpenAI APIs. Simply upload an image of a plant, and the app will analyze it, identify potential diseases, and highlight the affected region.
 
- 
+---
 
-⸻
+## 🚀 Features
 
-🚀 Features
-	•	🔍 Plant Disease Detection: Identifies visible signs of plant or crop diseases using AI.
-	•	📦 Bounding Box Visualization: Automatically highlights the affected region in the image.
-	•	📸 Image Upload Support: Accepts JPG, JPEG, and PNG image formats.
-	•	🧠 Powered by OpenAI via OpenRouter: Utilizes multimodal LLM (qwen2.5-vl-72b-instruct) to analyze visual and textual data.
-	•	⚙️ Streamlit Interface: Easy-to-use web interface with instant feedback.
+- 🔍 **Plant Disease Detection**: Identifies visible signs of plant or crop diseases using AI.
+- 📦 **Bounding Box Visualization**: Automatically highlights the affected region in the image.
+- 📸 **Image Upload Support**: Accepts JPG, JPEG, and PNG image formats.
+- 🧠 **Powered by OpenAI via OpenRouter**: Utilizes multimodal LLM (`qwen2.5-vl-72b-instruct`) to analyze visual and textual data.
+- ⚙️ **Streamlit Interface**: Easy-to-use web interface with instant feedback.
 
-⸻
+---
 
-🛠️ Tech Stack
-	•	Streamlit
-	•	OpenAI Python SDK
-	•	OpenRouter
-	•	Pillow (PIL)
+## 🛠️ Tech Stack
 
-⸻
+- [Streamlit](https://streamlit.io/)
+- [OpenAI Python SDK](https://github.com/openai/openai-python)
+- [OpenRouter](https://openrouter.ai/)
+- [Pillow (PIL)](https://python-pillow.org/)
 
+---
 
-✅ Setup Instructions
+## 📂 Project Structure
 
-1. Clone the Repository
+├── app.py                  # Main Streamlit app
+├── requirements.txt        # Python dependencies
+└── .streamlit/
+└── secrets.toml        # API key configuration (not pushed to GitHub)
 
-git clone https://github.com/your-username/plant-disease-detector.git
+---
+
+## ✅ Setup Instructions
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Avinashhmavi/plant-disease-detection.git
 cd plant-disease-detector
 
 2. Install Dependencies
@@ -64,6 +71,7 @@ When deploying on Streamlit Cloud, ensure that secrets.toml is set through the w
 📸 Example Usage
 
 Upload an image like this:
+	•	A leaf with possible disease spots
 
 And get results like:
 	•	✅ Disease Detected: Powdery Mildew
@@ -79,6 +87,4 @@ This tool is for educational and research purposes only. It is not a substitute 
 
 📄 License
 
-MIT License © 2025 Aviansh HM
-
-⸻
+MIT License © 2025 Avinash HM
