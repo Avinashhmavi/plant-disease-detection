@@ -11,10 +11,10 @@ client = OpenAI(
     api_key=st.secrets["openai"]["api_key"]
 )
 
-st.set_page_config(page_title="Plant Disease Detector", layout="centered")
+st.set_page_config(page_title="Plant / Crop Disease Detector", layout="centered")
 
-st.title("🪴 Plant / Crop Disease Detection 🌾")
-st.markdown("Upload an image of a plant, leaf, or crop, and get AI-powered disease detection.")
+st.title("🪴 ਪੌਦਾ / ਫਸਲਾਂ ਦੇ ਰੋਗਾਂ ਦਾ ਪਤਾ ਲਗਾਉਣਾ 🌾")
+st.markdown("ਕਿਸੇ ਪੌਦੇ, ਪੱਤੇ ਜਾਂ ਫਸਲ ਦੀ ਤਸਵੀਰ ਅਪਲੋਡ ਕਰੋ, ਅਤੇ AI-ਸੰਚਾਲਿਤ ਬਿਮਾਰੀ ਦਾ ਪਤਾ ਲਗਾਓ।  (Upload an image of a plant, leaf, or crop, and get AI-powered disease detection.)")
 
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 
@@ -37,10 +37,10 @@ if uploaded_file is not None:
 
     with st.spinner("Analyzing image..."):
         try:
-            # Update prompt to request bounding box coordinates
+            # First: Ask model to detect disease and return bounding box
             response = client.chat.completions.create(
                 extra_headers={
-                    "HTTP-Referer": "https://plant-disease-detector.streamlit.app", 
+                    "HTTP-Referer": "https://plant-disease-detector.streamlit.app",    
                     "X-Title": "Plant Disease Detector"
                 },
                 model="qwen/qwen2.5-vl-72b-instruct:free",
@@ -70,8 +70,42 @@ if uploaded_file is not None:
             )
 
             result = response.choices[0].message.content.strip()
-            st.subheader("🔍 Analysis Result:")
+
+            # Display English result
+            st.subheader("🔍 Analysis Result (English):")
             st.write(result)
+
+            # Function to translate text to Punjabi using LLM
+            def translate_to_punjabi_with_llm(text):
+                if not text or len(text.strip()) == 0:
+                    return "ਕੋਈ ਵੈਧ ਪਾਠ ਨਹੀਂ ਮਿਲਿਆ।"
+
+                try:
+                    trans_response = client.chat.completions.create(
+                        model="qwen/qwen2.5-vl-72b-instruct:free",
+                        messages=[
+                            {
+                                "role": "system",
+                                "content": "You are a helpful assistant who translates English text into Punjabi."
+                            },
+                            {
+                                "role": "user",
+                                "content": f"Translate the following English text into Punjabi:\n\n{text}"
+                            }
+                        ],
+                        max_tokens=300
+                    )
+                    return trans_response.choices[0].message.content.strip()
+                except Exception as e:
+                    return f"[ਪੰਜਾਬੀ ਅਨੁਵਾਦ ਉਪਲਬਧ ਨਹੀਂ] - {str(e)}"
+
+            # Translate and display Punjabi result
+            if result.strip():
+                st.subheader("🔍 ਵਿਸ਼ਲੇਸ਼ਣ ਨਤੀਜਾ (ਪੰਜਾਬੀ):")
+                punjabi_result = translate_to_punjabi_with_llm(result)
+                st.write(punjabi_result)
+            else:
+                st.warning("No English result to translate.")
 
             # Extract bounding box coordinates from the response
             bbox_pattern = r"\[(\d+), (\d+), (\d+), (\d+)\]"
