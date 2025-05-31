@@ -40,10 +40,12 @@ An AI-powered web app that detects diseases in plant leaves or crops using advan
 git clone https://github.com/Avinashhmavi/plant-disease-detection.git
 cd plant-disease-detector
 
-2. Install Dependencies
+---
+
+### 2. Install Dependencies
 
 pip install -r requirements.txt
-
+---
 3. Set Up API Key
 
 Create a file at .streamlit/secrets.toml and add your OpenAI API key (via OpenRouter):
@@ -52,7 +54,7 @@ Create a file at .streamlit/secrets.toml and add your OpenAI API key (via OpenRo
 api_key = "your-openrouter-api-key-here"
 
 ⚠️ Never commit secrets.toml to version control. Add it to .gitignore.
-
+---
 4. Run the App
 
 streamlit run app.py
@@ -87,4 +89,7 @@ This tool is for educational and research purposes only. It is not a substitute 
 
 📄 License
 
-MIT License © 2025 Avinash HM
+MIT License © 2025 Aviansh HM
+
+
+---
