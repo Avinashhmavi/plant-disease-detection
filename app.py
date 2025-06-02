@@ -7,7 +7,7 @@ import re  # For parsing coordinates from the model's response
 
 # Initialize OpenAI client with OpenRouter
 client = OpenAI(
-    base_url="https://openrouter.ai/api/v1", 
+    base_url="https://openrouter.ai/api/v1",   
     api_key=st.secrets["openai"]["api_key"]
 )
 
@@ -20,9 +20,9 @@ col1, col2 = st.columns(2)
 with col1:
     st.image("img1.jpeg", width=200)  # Adjusted width to make the logo smaller
 with col2:
-    st.image("img2.jpeg", width=800)      # Adjusted width to make the logo smaller
+    st.image("img2.jpeg", width=800)  # Adjusted width to make the logo smaller
 
-st.title("Neeev.ai- Plant Disease identification")
+st.title("Neeev.ai - Plant Disease identification")
 st.markdown("ਕਿਸੇ ਪੌਦੇ, ਪੱਤੇ ਜਾਂ ਫਸਲ ਦੀ ਤਸਵੀਰ ਅਪਲੋਡ ਕਰੋ, ਅਤੇ AI-ਸੰਚਾਲਿਤ ਬਿਮਾਰੀ ਦਾ ਪਤਾ ਲਗਾਓ।  (Upload an image of a plant, leaf, or crop, and get AI-powered disease detection.)")
 
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
@@ -34,14 +34,19 @@ if uploaded_file is not None:
 
     # Get file extension
     file_name = uploaded_file.name
-    ext = file_name.split(".")[-1].upper()
+    ext = file_name.split(".")[-1].lower()  # Get extension in lowercase
 
-    if ext not in ["JPEG", "JPG", "PNG"]:
-        ext = "JPEG"
+    # Map common extensions to supported Pillow formats
+    if ext == "jpg":
+        ext = "jpeg"
+    elif ext == "png":
+        ext = "png"
+    else:
+        ext = "jpeg"  # Default fallback
 
     # Convert image to base64 for prompt context
     buffered = io.BytesIO()
-    image.save(buffered, format=ext)
+    image.save(buffered, format=ext.upper())  # Ensure uppercase format
     img_b64 = base64.b64encode(buffered.getvalue()).decode()
 
     with st.spinner("Analyzing image..."):
