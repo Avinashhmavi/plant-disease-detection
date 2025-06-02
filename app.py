@@ -13,10 +13,19 @@ client = OpenAI(
 
 st.set_page_config(page_title="Plant / Crop Disease Detector", layout="centered")
 
-st.title("🪴 ਪੌਦਾ / ਫਸਲਾਂ ਦੇ ਰੋਗਾਂ ਦਾ ਪਤਾ ਲਗਾਉਣਾ 🌾")
+# Create columns to display logos side by side
+col1, col2 = st.columns(2)
+
+# Display the two images side by side with reduced size
+with col1:
+    st.image("img1.jpeg", width=200)  # Adjusted width to make the logo smaller
+with col2:
+    st.image("img2.jpeg", width=800)      # Adjusted width to make the logo smaller
+
+st.title("Neeev.ai- Plant Disease identification")
 st.markdown("ਕਿਸੇ ਪੌਦੇ, ਪੱਤੇ ਜਾਂ ਫਸਲ ਦੀ ਤਸਵੀਰ ਅਪਲੋਡ ਕਰੋ, ਅਤੇ AI-ਸੰਚਾਲਿਤ ਬਿਮਾਰੀ ਦਾ ਪਤਾ ਲਗਾਓ।  (Upload an image of a plant, leaf, or crop, and get AI-powered disease detection.)")
 
-uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
+uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])  # Added "jpg"
 
 if uploaded_file is not None:
     # Display uploaded image
@@ -40,7 +49,7 @@ if uploaded_file is not None:
             # First: Ask model to detect disease and return bounding box
             response = client.chat.completions.create(
                 extra_headers={
-                    "HTTP-Referer": "https://plant-disease-detector.streamlit.app",    
+                    "HTTP-Referer": "https://plant-disease-detector.streamlit.app",      
                     "X-Title": "Plant Disease Detector"
                 },
                 model="qwen/qwen2.5-vl-72b-instruct:free",
