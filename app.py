@@ -25,7 +25,7 @@ with col2:
 st.title("Neeev.ai- Plant Disease identification")
 st.markdown("ਕਿਸੇ ਪੌਦੇ, ਪੱਤੇ ਜਾਂ ਫਸਲ ਦੀ ਤਸਵੀਰ ਅਪਲੋਡ ਕਰੋ, ਅਤੇ AI-ਸੰਚਾਲਿਤ ਬਿਮਾਰੀ ਦਾ ਪਤਾ ਲਗਾਓ।  (Upload an image of a plant, leaf, or crop, and get AI-powered disease detection.)")
 
-uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])  # Added "jpg"
+uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 
 if uploaded_file is not None:
     # Display uploaded image
@@ -49,7 +49,7 @@ if uploaded_file is not None:
             # First: Ask model to detect disease and return bounding box
             response = client.chat.completions.create(
                 extra_headers={
-                    "HTTP-Referer": "https://plant-disease-detector.streamlit.app",      
+                    "HTTP-Referer": "https://plant-disease-detector.streamlit.app", 
                     "X-Title": "Plant Disease Detector"
                 },
                 model="qwen/qwen2.5-vl-72b-instruct:free",
